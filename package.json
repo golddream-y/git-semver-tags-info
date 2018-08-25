@@ -1,0 +1,46 @@
+{
+  "name": "git-semver-tags-info",
+  "version": "0.1.6",
+  "description": "以反向时间顺序获取存储库的所有git semver标记",
+  "homepage": "https://github.com/WFE-CI/git-semver-tags-info",
+  "author": {
+    "name": "golddream-y",
+    "email": "golddream@live.com",
+    "url": "https://github.com/golddream-y"
+  },
+  "repository": "WFE-CI/git-semver-tags-info",
+  "license": "BSD",
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "git-semver-tags-info",
+    "order",
+    "semver",
+    "tag",
+    "git-tag",
+    "git"
+  ],
+  "dependencies": {
+    "meow": "^3.3.0",
+    "semver": "^5.0.1"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "git-dummy-commit": "^1.1.0",
+    "istanbul": "^0.4.2",
+    "jscs": "^2.9.0",
+    "jshint": "^2.8.0",
+    "mocha": "*",
+    "shelljs": "^0.5.1"
+  },
+  "scripts": {
+    "coverage": "istanbul cover _mocha -- -R spec && rm -rf ./coverage",
+    "lint": "jshint *.js --exclude node_modules && jscs *.js",
+    "test": "npm run-script lint && mocha --timeout 10000"
+  },
+  "bin": {
+    "git-semver-tags-info": "cli.js"
+  }
+}
