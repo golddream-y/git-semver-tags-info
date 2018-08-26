@@ -2,7 +2,7 @@
  * @Author: erwin
  * @Date:   2018-08-25 20-08-17
  * @Last modified by:   erwin
- * @Last modified time: 2018-08-25 22-08-52
+ * @Last modified time: 2018-08-26 17-08-67
  */
 
 
@@ -54,8 +54,9 @@ module.exports = function(callback, opts) {
       return
     }
 
-    var tags = []
-    var tagPrefixRegexp;
+    let tags = []
+    let commits = []
+    let tagPrefixRegexp;
     // 当前tag的时间
     let currentDate;
     if (opts.tagPrefix) {
@@ -64,15 +65,17 @@ module.exports = function(callback, opts) {
 
     data.split('\n').forEach(function(decorations) {
 
-      let match
+      let match;
 
       // 更新当前记录所在时间
       if (getLogDate(decorations)) {
         currentDate = getLogDate(decorations);
       }
-
+      debug('decorations:', decorations);
       while ((match = regex.exec(decorations))) {
-        var tag = match[1]
+
+        let tag = match[1];
+
         if (opts.lernaTags) {
           if (lernaTag(tag, opts.package)) {
             tags.push({
@@ -95,8 +98,28 @@ module.exports = function(callback, opts) {
           })
         }
       }
+
+      // 获取所有commit记录信息
+      if (decorations.indexOf('commit ') === 0) {
+        let logInfo = regex.exec(decorations);
+        let tag = logInfo ? logInfo[1] : null;
+
+        if (!currentDate) {
+          return;
+        }
+
+        commits.push({
+          'isTag': !!tag,
+          'tag': tag ? tag : decorations,
+          'date': currentDate
+        })
+
+      }
+
     })
 
-    callback(null, tags)
+    debug('tags', tags);
+    debug('commits', commits);
+    callback(null, commits)
   })
 }
