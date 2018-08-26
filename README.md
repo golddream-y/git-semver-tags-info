@@ -16,14 +16,18 @@ var gitSemverTagsInfo = require('git-semver-tags-info', [options]);
 
 gitSemverTagsInfo(function(err, tags) {
   console.log(tags);
-  //=> [ { tag: '0.2.1', date: '2018-08-25 18:09:12' },  { tag: '0.1.0', date: '2018-08-25 18:09:12' } ]
+  //=>   [{ isTag: true, tag: '0.1.2', date: '2018-08-26 15:53:32' },  { isTag: true, tag: '0.1.1', date: '2018-08-26 23:27:05' },{ isTag: false,  tag: 'commit 9cfaa8afbd77d8a09bf6c99381009d1650ac5047',  date: '2018-08-23 21:09:48' }]
 });
 ```
 
 ```sh
 $ npm install --global git-semver-tags-info
 $ git-semver-tags-info
- [{ tag: '0.2.1', date: '2018-08-25 18:09:12' }, { tag: '0.1.0', date: '2018-08-25 18:09:12' }]
+  [{ isTag: true, tag: '0.1.2', date: '2018-08-26 15:53:32' },
+  { isTag: true, tag: '0.1.1', date: '2018-08-26 23:27:05' },
+  { isTag: false,
+    tag: 'commit 9cfaa8afbd77d8a09bf6c99381009d1650ac5047',
+    date: '2018-08-23 21:09:48' } ]
 ```
 
 ## Options
